@@ -1,9 +1,13 @@
 'use strict'
-
+const ip = require('ip').address()
 const path = require('path')
 const program = require('commander')
-
-const { MODE, NODE_ENV, PORT } = process.env;
+const {
+  MODE,
+  PLATFORM,
+  NODE_ENV
+} = process.env
+console.log(`[5ug.com][${PLATFORM} ${MODE}]`, '运行build/config.js')
 
 const fileExtConfig = {
   swan: {
@@ -29,9 +33,9 @@ module.exports = {
   assetsRoot: path.join(process.cwd(), program.output),
   assetsSubDirectory: MODE === 'mp' ? '' : 'static',
   proxyTable: {},
-  host: 'localhost',
-  port: PORT || program.port,
-  autoOpenBrowser: program.open,
+  host: ip,
+  port: PLATFORM === 'pc' ? 2008 : 2000,
+  autoOpenBrowser: true,
   errorOverlay: true,
   notifyOnErrors: true,
   poll: false,
@@ -40,8 +44,8 @@ module.exports = {
   devtool: NODE_ENV === 'development' ? 'cheap-module-eval-source-map' : '#source-map',
   cacheBusting: true,
   cssSourceMap: true,
-  productionSourceMap: false,
-  productionGzip: false,
+  productionSourceMap: true,
+  productionGzip: true,
   productionGzipExtensions: ['js', 'css'],
   bundleAnalyzerReport: program.analyze,
   fileExt: fileExtConfig[program.target]

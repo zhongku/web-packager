@@ -6,7 +6,11 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const config = require('../config')
 const utils = require('../utils')
 const vueLoaderConfig = require('../vue-loader.conf')
-
+const {
+  MODE,
+  PLATFORM
+} = process.env
+console.log(`[5ug.com][${PLATFORM} ${MODE}]`, '运行build/h5/webpack.base.conf.js')
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
@@ -19,17 +23,22 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
-  entry: utils.resolve('./src/main.js'),
+  entry: utils.resolve(`./src/_start/${PLATFORM}/main.js`),
   output: {
     path: config.assetsRoot,
     filename: '[name].js',
     publicPath: '/'
   },
+  externals: {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex'
+  },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': utils.resolve('src'),
-      vue: 'vue/dist/vue.js',
+      vue: 'vue/dist/vue.js'
     }
   },
   module: {
@@ -77,13 +86,11 @@ module.exports = {
     }),
     new ProgressBarPlugin(),
     // copy custom static assets
-    new CopyWebpackPlugin([
-      {
-        from: utils.resolve('./static'),
-        to: config.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ])
+    new CopyWebpackPlugin([{
+      from: utils.resolve('./static'),
+      to: config.assetsSubDirectory,
+      ignore: ['*.vant']
+    }])
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
