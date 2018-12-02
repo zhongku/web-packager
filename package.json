@@ -75,6 +75,10 @@
     "webpack-dev-middleware-hard-disk": "^1.12.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
+    "codecov": "^3.0.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.1.1",
     "webpack-mpvue-asset-plugin": "^0.1.0"
   },
   "engines": {
