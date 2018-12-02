@@ -37,7 +37,7 @@ module.exports = {
     chunkFilename: utils.assetsPath('[id].js')
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json', '.less'],
     alias: {
       '@': utils.resolve('src'),
       vue: 'mpvue'
@@ -106,13 +106,11 @@ module.exports = {
         safe: true
       }
     }),
-    new CopyWebpackPlugin([
-      {
-        from: utils.resolve('static'),
-        to: path.join(config.assetsRoot, 'static'),
-        ignore: ['.*']
-      }
-    ]),
+    new CopyWebpackPlugin([{
+      from: utils.resolve('static'),
+      to: path.join(config.assetsRoot, 'static'),
+      ignore: ['.*']
+    }]),
     new webpack.DefinePlugin({
       'process.env': config.env
     }),

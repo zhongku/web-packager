@@ -35,7 +35,7 @@ module.exports = {
     'vuex': 'Vuex'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json', '.less'],
     alias: {
       '@': utils.resolve('src'),
       vue: 'vue/dist/vue.js'

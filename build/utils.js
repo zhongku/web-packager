@@ -6,17 +6,19 @@ const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const config = require('./config')
 
-function resolve(...dir) {
+function resolve (...dir) {
   return path.join(process.cwd(), ...dir)
 }
 
-function assetsPath(_path) {
-  const { assetsSubDirectory } = config
+function assetsPath (_path) {
+  const {
+    assetsSubDirectory
+  } = config
 
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-function mergeExtraConfig(config) {
+function mergeExtraConfig (config) {
   let extraWebpackConfig
 
   try {
@@ -34,7 +36,7 @@ function mergeExtraConfig(config) {
   return config
 }
 
-function cssLoaders(options) {
+function cssLoaders (options) {
   options = options || {}
 
   const cssLoader = {
@@ -99,7 +101,9 @@ function cssLoaders(options) {
     wxss: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
+    sass: generateLoaders('sass', {
+      indentedSyntax: true
+    }),
     scss: generateLoaders('sass'),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
@@ -107,7 +111,7 @@ function cssLoaders(options) {
 }
 
 // Generate loaders for standalone style files (outside of .vue)
-function styleLoaders(options) {
+function styleLoaders (options) {
   const output = []
   const loaders = cssLoaders(options)
 
