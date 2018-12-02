@@ -29,8 +29,11 @@ module.exports = {
     MODE: JSON.stringify(MODE),
     NODE_ENV: JSON.stringify(NODE_ENV)
   },
-  index: path.join(process.cwd(), program.output, 'index.html'),
+  index: path.join(process.cwd(), program.output, PLATFORM, 'index.html'),
   assetsRoot: path.join(process.cwd(), program.output, PLATFORM),
+  publicDevPath: PLATFORM === 'pc' ? 'http://' + ip + ':2008/' : 'http://' + ip + ':2000/',
+  // publicDevPath: '/',
+  publicPath: '/',
   assetsSubDirectory: MODE === 'mp' ? '' : 'static',
   proxyTable: {},
   host: ip,
