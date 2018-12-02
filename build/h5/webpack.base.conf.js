@@ -2,15 +2,22 @@
 
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const os = require('os')
+const HappyPack = require('happypack')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const config = require('../config')
 const utils = require('../utils')
 const vueLoaderConfig = require('../vue-loader.conf')
+const happyThreadPool = HappyPack.ThreadPool({
+  size: os.cpus().length
+})
+
 const {
   MODE,
   PLATFORM
 } = process.env
 console.log(`[5ug.com][${PLATFORM} ${MODE}]`, '运行build/h5/webpack.base.conf.js')
+console.log('assetsRoot', config.assetsRoot)
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
@@ -85,6 +92,14 @@ module.exports = {
       'process.env': config.env
     }),
     new ProgressBarPlugin(),
+    new HappyPack({
+      id: 'happyBabel',
+      loaders: [{
+        loader: 'babel-loader?cacheDirectory=true'
+      }],
+      threadPool: happyThreadPool,
+      verbose: true
+    }),
     // copy custom static assets
     new CopyWebpackPlugin([{
       from: utils.resolve('./static'),

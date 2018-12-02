@@ -30,7 +30,7 @@ module.exports = {
     NODE_ENV: JSON.stringify(NODE_ENV)
   },
   index: path.join(process.cwd(), program.output, 'index.html'),
-  assetsRoot: path.join(process.cwd(), program.output),
+  assetsRoot: path.join(process.cwd(), program.output, PLATFORM),
   assetsSubDirectory: MODE === 'mp' ? '' : 'static',
   proxyTable: {},
   host: ip,
