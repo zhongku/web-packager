@@ -19,7 +19,7 @@ const {
 console.log(`[5ug.com][${PLATFORM} ${MODE}]`, '运行build/h5/webpack.base.conf.js')
 console.log('assetsRoot', config.assetsRoot)
 var publicPath = process.env.NODE_ENV === 'production' ? config.publicPath : config.publicDevPath
-console.log('NODEENV', process.env.NODE_ENV, publicPath)
+console.log('代理路径', process.env.NODE_ENV, publicPath)
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',

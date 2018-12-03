@@ -8,9 +8,7 @@ const portfinder = require('portfinder')
 const baseWebpackConfig = require('./webpack.base.conf')
 const config = require('../config')
 const utils = require('../utils')
-const {
-  PLATFORM
-} = process.env
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 console.log('[5ug.com][h5]', '运行build/h5/webpack.dev.conf.js')
@@ -29,7 +27,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     historyApiFallback: {
       rewrites: [{
         from: /.*/,
-        to: config.assetsRoot
+        to: config.dev.assetsPublicPath
       }]
     },
     hot: true,
@@ -57,7 +55,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.index,
-      template: utils.resolve(`./src/_start/${PLATFORM}/index.html`),
+      template: 'index.html',
       inject: true
     })
   ]

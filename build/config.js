@@ -32,7 +32,6 @@ module.exports = {
   index: path.join(process.cwd(), program.output, PLATFORM, 'index.html'),
   assetsRoot: path.join(process.cwd(), program.output, PLATFORM),
   publicDevPath: PLATFORM === 'pc' ? 'http://' + ip + ':2008/' : 'http://' + ip + ':2000/',
-  // publicDevPath: '/',
   publicPath: '/',
   assetsSubDirectory: MODE === 'mp' ? '' : 'static',
   proxyTable: {},
@@ -48,8 +47,7 @@ module.exports = {
   cacheBusting: true,
   cssSourceMap: true,
   productionSourceMap: true,
-  productionGzip: true,
+  productionGzip: false, // 启用压缩
   productionGzipExtensions: ['js', 'css'],
-  bundleAnalyzerReport: program.analyze,
   fileExt: fileExtConfig[program.target]
 }

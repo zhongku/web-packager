@@ -10,7 +10,11 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const baseWebpackConfig = require('./webpack.base.conf')
 const config = require('../config')
 const utils = require('../utils')
-
+const {
+  PLATFORM
+} = process.env
+console.log('[5ug.com][h5]', '运行build/h5/webpack.prod.conf.js')
+console.log('发布路径', config.assetsRoot)
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -42,21 +46,28 @@ const webpackConfig = merge(baseWebpackConfig, {
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-      allChunks: true,
+      allChunks: true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
       cssProcessorOptions: config.productionSourceMap
-        ? { safe: true, map: { inline: false } }
-        : { safe: true }
+        ? {
+          safe: true,
+          map: {
+            inline: false
+          }
+        }
+        : {
+          safe: true
+        }
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.index,
-      template: 'index.html',
+      template: utils.resolve(`./src/_start/${PLATFORM}/index.html`),
       inject: true,
       minify: {
         removeComments: true,
@@ -105,8 +116,8 @@ const webpackConfig = merge(baseWebpackConfig, {
 })
 
 if (config.productionGzip) {
+  console.info('h5 build 启用压缩')
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
-
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       asset: '[path].gz[query]',
@@ -117,14 +128,13 @@ if (config.productionGzip) {
         ')$'
       ),
       threshold: 10240,
+      // deleteOriginalAssets: true, // 删除源文件，不建议
       minRatio: 0.8
     })
   )
 }
 
-if (config.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-}
-
+// 发布后启用压缩报表
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 module.exports = webpackConfig

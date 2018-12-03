@@ -24,9 +24,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-if (config.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-}
+// 发布后启用压缩报表
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 
 module.exports = webpackConfig
