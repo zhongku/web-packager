@@ -1,6 +1,6 @@
 {
   "name": "web-packager",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "mpvue 集成构建工具",
   "main": "bin/index.js",
   "bin": {
@@ -41,7 +41,7 @@
     "eslint-plugin-standard": "^3.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.0",
-    "flyio": "^0.6.2",
+    "flyio": "0.6.2",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "happypack": "^5.0.0",
     "html-webpack-plugin": "^2.30.1",
