@@ -27,7 +27,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     historyApiFallback: {
       rewrites: [{
         from: /.*/,
-        to: config.dev.assetsPublicPath
+        to: config.assetsRoot
       }]
     },
     hot: true,
