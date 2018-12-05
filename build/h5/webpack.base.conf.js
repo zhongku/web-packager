@@ -104,10 +104,15 @@ module.exports = {
     }),
     // copy custom static assets
     new CopyWebpackPlugin([{
-      from: utils.resolve('./static'),
-      to: config.assetsSubDirectory,
-      ignore: ['*.vant']
-    }])
+        from: utils.resolve('./static'),
+        to: config.assetsSubDirectory,
+        ignore: ['*.vant']
+      },
+      {
+        from: utils.resolve('./app.json'),
+        to: './'
+      }
+    ])
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

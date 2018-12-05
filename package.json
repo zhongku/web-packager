@@ -1,6 +1,6 @@
 {
   "name": "web-packager",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "mpvue 集成构建工具",
   "main": "bin/index.js",
   "bin": {
