@@ -1,6 +1,7 @@
 'use strict'
 
 const path = require('path')
+const os = require('os')
 const program = require('commander')
 const webpack = require('webpack')
 const MpvueEntry = require('mpvue-entry')
@@ -13,6 +14,12 @@ const config = require('../config')
 const utils = require('../utils')
 const vueLoaderConfig = require('../vue-loader.conf')
 
+const HappyPack = require('happypack')
+const happyThreadPool = HappyPack.ThreadPool({
+  size: os.cpus().length
+})
+console.log('[5ug.com][mp]', '运行build/mp/webpack.base.conf.js')
+console.log('assetsRoot', config.assetsRoot)
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
@@ -37,7 +44,7 @@ module.exports = {
     chunkFilename: utils.assetsPath('[id].js')
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json', '.less'],
     alias: {
       '@': utils.resolve('src'),
       vue: 'mpvue'
@@ -106,13 +113,11 @@ module.exports = {
         safe: true
       }
     }),
-    new CopyWebpackPlugin([
-      {
-        from: utils.resolve('static'),
-        to: path.join(config.assetsRoot, 'static'),
-        ignore: ['.*']
-      }
-    ]),
+    new CopyWebpackPlugin([{
+      from: utils.resolve('static'),
+      to: path.join(config.assetsRoot, 'static'),
+      ignore: ['.*']
+    }]),
     new webpack.DefinePlugin({
       'process.env': config.env
     }),
@@ -127,6 +132,14 @@ module.exports = {
           module.resource.indexOf('node_modules') >= 0
         ) || count > 1
       }
+    }),
+    new HappyPack({
+      id: 'happyBabel',
+      loaders: [{
+        loader: 'babel-loader?cacheDirectory=true'
+      }],
+      threadPool: happyThreadPool,
+      verbose: true
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
